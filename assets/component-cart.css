@@ -58,7 +58,21 @@ cart-items {
 .cart__items {
   position: relative;
   padding-bottom: 3rem;
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-bottom: none;
+  position: relative;
+}
+
+.cart__items::after {
+  content: "✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿ · ✿";
+  position: relative;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: rgb(0, 0, 0);
+  letter-spacing: 0.5rem;
 }
 
 .cart__items--disabled {
@@ -190,6 +204,41 @@ cart-items {
 
 .cart__checkout-button {
   max-width: 36rem;
+  background: transparent;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  color: #000000;
+  padding: 1rem 3rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: var(--font-body-family);
+  position: relative;
+  overflow: hidden;
+}
+
+.cart__checkout-button:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+  border: 2px solid #000000;
+}
+
+.cart__checkout-button:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    45deg,
+    #ff6b6b,
+    #ffd93d,
+    #6bcb77,
+    #4d96ff
+  );
+  background-size: 300% 300%;
+  opacity: 1;
+  z-index: -1;
+  animation: gradientShift 3s infinite;
 }
 
 .cart__ctas {

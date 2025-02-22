@@ -1,0 +1,182 @@
+{% comment %} Newsletter signup section {% endcomment %}
+<style>
+  .updates {
+    padding: 6rem 0;
+    background: transparent;
+  }
+
+  .updates__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .updates__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  .updates__description {
+    font-size: 1.1rem;
+    color: {{ section.settings.text_color | color_modify: 'alpha', 0.8 }};
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .updates__content {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .updates__form {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .updates__input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+    border: none;
+    border-bottom: 2px solid {{ section.settings.text_color | color_modify: 'alpha', 1 }};
+    background: transparent;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    font-family: var(--font-body-family);
+    box-sizing: border-box;
+  }
+
+  .updates__input:focus {
+    outline: none;
+    border-bottom-color: {{ section.settings.text_color }};
+  }
+
+  .updates__input::placeholder {
+    color: {{ section.settings.text_color }};
+    font-style: normal;
+    font-family: var(--font-body-family);
+    opacity: 0.7;
+    font-size: 1.8rem;
+  }
+
+  .updates__button {
+    padding: 1rem 2rem;
+    background: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .updates__button:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .updates {
+      padding: 4rem 0;
+    }
+
+    .updates__title {
+      font-size: 2rem;
+    }
+
+    .updates__form {
+      flex-direction: column;
+    }
+
+    .updates__button {
+      width: 100%;
+    }
+  }
+</style>
+
+<section id="updates" class="updates">
+  <div class="updates__header">
+    <h2 class="updates__title">{{ section.settings.title }}</h2>
+    {%- if section.settings.description != blank -%}
+      <p class="updates__description">{{ section.settings.description }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="updates__content">
+    {%- form 'customer', id: 'ContactForm', class: 'updates__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input
+        type="email"
+        name="contact[email]"
+        class="updates__input"
+        value="{% if customer %}{{ customer.email }}{% endif %}"
+        placeholder="Please give me your email 🥹"
+        required
+      >
+      <button type="submit" class="button-primary">{{ section.settings.button_label }} 💌</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Updates",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Stay Updated"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Subscribe to get updates about new releases, tour dates, and more."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Updates"
+    }
+  ]
+}
+{% endschema %}

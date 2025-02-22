@@ -1,0 +1,225 @@
+{% comment %} Tour section with Bandsintown integration {% endcomment %}
+<style>
+  .tour {
+    padding: 6rem 0;
+    background: transparent;
+  }
+
+  .tour__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .tour__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  .tour__content {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .tour__widget {
+    width: 100%;
+    height: 600px;
+    border: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .tour {
+      padding: 4rem 0;
+    }
+
+    .tour__title {
+      font-size: 2rem;
+    }
+
+    .tour__widget {
+      height: 500px;
+    }
+  }
+</style>
+
+<section id="tour" class="tour">
+  <div class="tour__header">
+    <h2 class="tour__title">{{ section.settings.title }}</h2>
+  </div>
+
+  <script charset="utf-8" src="https://widgetv3.bandsintown.com/main.min.js" defer></script>
+  <a
+    class="bit-widget-initializer"
+
+    data-artist-name="id_15527923"
+
+    data-events-to-display=""
+    data-background-color="rgba(255,255,255,0)"
+    data-separator-color="rgba(0,0,0,1)"
+    data-text-color="rgba(0,0,0,1)"
+    data-font="'Lastik'"
+    data-auto-style="true"
+
+    data-button-label-capitalization="capitalize"
+    data-header-capitalization="capitalize"
+    data-location-capitalization="capitalize"
+    data-venue-capitalization="capitalize"
+    data-display-local-dates="true"
+    data-local-dates-position="tab"
+    data-display-past-dates="true"
+    data-display-details="false"
+    data-display-lineup="false"
+    data-display-start-time="true"
+    data-social-share-icon="false"
+    data-display-limit="all"
+
+    data-date-format="MMM. D, YYYY"
+    data-date-orientation="horizontal"
+    data-date-border-color="#000000"
+    data-date-border-width="1px"
+    data-date-capitalization="capitalize"
+    data-date-border-radius="10px"
+
+    data-event-ticket-cta-size="medium"
+    data-event-custom-ticket-text=""
+    data-event-ticket-text="Buy Tickets 💞"
+    data-event-ticket-icon="false"
+    data-event-ticket-cta-text-color="rgb(0, 0, 0)"
+    data-event-ticket-cta-bg-color="rgba(74,74,74,0)"
+    data-event-ticket-cta-border-color="rgba(0,0,0,1)"
+    data-event-ticket-cta-border-width="2px"
+    data-event-ticket-cta-border-radius="500px"
+
+    data-sold-out-button-text-color="rgb(255, 255, 255)"
+    data-sold-out-button-background-color="rgb(71, 12, 159)"
+    data-sold-out-button-border-color="rgb(71, 12, 159)"
+    data-sold-out-button-clickable="true"
+
+    data-event-rsvp-position="left"
+    data-event-rsvp-cta-size="medium"
+    data-event-rsvp-only-show-icon="false"
+    data-event-rsvp-text="RSVP 🙏"
+    data-event-rsvp-icon="false"
+    data-event-rsvp-cta-text-color="rgb(0, 0, 0)"
+    data-event-rsvp-cta-bg-color="rgba(255,255,255,0)"
+    data-event-rsvp-cta-border-color="rgb(0, 0, 0)"
+    data-event-rsvp-cta-border-width="2px"
+    data-event-rsvp-cta-border-radius="500px"
+
+    data-follow-section-position="top"
+    data-follow-section-alignment="center"
+    data-follow-section-header-text="Get updates on new shows, new music, and more"
+    data-follow-section-cta-size="medium"
+    data-follow-section-cta-text="Follow 😄"
+    data-follow-section-cta-icon="false"
+    data-follow-section-cta-text-color="rgb(0, 0, 0)"
+    data-follow-section-cta-bg-color="rgba(0, 0, 0, 0)"
+    data-follow-section-cta-border-color="rgba(0, 0, 0, 1)"
+    data-follow-section-cta-border-width="2px"
+    data-follow-section-cta-border-radius="500px"
+
+    data-play-my-city-position="bottom"
+    data-play-my-city-alignment="center"
+    data-play-my-city-header-text="Don't see a show near you?"
+    data-play-my-city-cta-size="medium"
+    data-play-my-city-cta-text="Play My City 🌏"
+    data-play-my-city-cta-icon="false"
+    data-play-my-city-cta-text-color="rgb(0, 0, 0)"
+    data-play-my-city-cta-bg-color="rgba(74,74,74,0)"
+    data-play-my-city-cta-border-color="rgba(0,0,0,1)"
+    data-play-my-city-cta-border-width="2px"
+    data-play-my-city-cta-border-radius="500px"
+
+    data-optin-font=""
+    data-optin-text-color=""
+    data-optin-bg-color=""
+    data-optin-cta-text-color=""
+    data-optin-cta-bg-color=""
+    data-optin-cta-border-width=""
+    data-optin-cta-border-radius=""
+    data-optin-cta-border-color=""
+
+    data-language="en"
+    data-layout-breakpoint="750"
+    data-app-id=""
+    data-affil-code=""
+    data-bit-logo-position="hidden"
+    data-bit-logo-color="rgba(0,0,0,1)"
+  ></a>
+</section>
+
+{% schema %}
+{
+  "name": "Tour",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Tour Dates"
+    },
+    {
+      "type": "text",
+      "id": "artist_name",
+      "label": "Bandsintown Artist Name",
+      "info": "Enter the exact artist name as it appears on Bandsintown"
+    },
+    {
+      "type": "range",
+      "id": "events_to_show",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "default": 15,
+      "label": "Number of Events to Show"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Section Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "widget_background_color",
+      "label": "Widget Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "widget_text_color",
+      "label": "Widget Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "widget_link_color",
+      "label": "Widget Link Color",
+      "default": "#1A0DAB"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tour"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+  // Load Bandsintown widget script
+  if (!window.BIT_WIDGET_LOADED) {
+    window.BIT_WIDGET_LOADED = true;
+    const script = document.createElement('script');
+    script.src = 'https://widget.bandsintown.com/main.min.js';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+{% endjavascript %}

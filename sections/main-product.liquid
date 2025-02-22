@@ -88,7 +88,10 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
-                {% render block %}
+                {% comment %}Skip rendering app blocks that might include bundling{% endcomment %}
+                {% unless block.settings.app contains 'bundle' %}
+                  {% render block %}
+                {% endunless %}
               {%- when 'text' -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
@@ -720,6 +723,27 @@
 
     <script type="application/ld+json">
       {{ product | structured_data }}
+    </script>
+
+    <script>
+      (() => {
+        if (window.matchMedia('(max-width: 749px)').matches) {
+          document.addEventListener('DOMContentLoaded', () => {
+            const modalDialogs = document.querySelectorAll('.product-media-modal__dialog');
+
+            modalDialogs.forEach((dialog) => {
+              dialog.addEventListener('click', (event) => {
+                // Only close if clicking the dialog background, not the media content
+                if (event.target === dialog) {
+                  // Find and click the close button to properly close the modal
+                  const closeButton = dialog.querySelector('button[aria-label="Close"]');
+                  if (closeButton) closeButton.click();
+                }
+              });
+            });
+          });
+        }
+      })();
     </script>
   </div>
 </product-info>
@@ -1674,7 +1698,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_2.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_2",
@@ -1874,7 +1898,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_3.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_3",
@@ -2176,7 +2200,7 @@
       ],
       "default": "hide",
       "label": "t:sections.main-product.settings.mobile_thumbnails.label"
-    },    
+    },
     {
       "type": "select",
       "id": "media_position",

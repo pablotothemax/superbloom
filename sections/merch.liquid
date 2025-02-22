@@ -1,0 +1,195 @@
+{% comment %} Merch section displaying newest collection {% endcomment %}
+<style>
+  .merch {
+    padding: 6rem 0;
+    background: transparent;
+  }
+
+  .merch__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .merch__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  .merch__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+    justify-content: center;
+  }
+
+  .merch__product-card {
+    text-align: center;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    width: 250px;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+  }
+
+  .merch__product-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    transition: opacity 0.2s ease;
+    display: block;
+  }
+
+  .merch__product-image.placeholder {
+    background: #f4f4f4;
+    padding: 20%;
+  }
+
+  .merch__product-card:hover .merch__product-image {
+    opacity: 0.8;
+  }
+
+  .merch__product-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .merch__product-price {
+    font-size: 1rem;
+    color: {{ section.settings.text_color | color_modify: 'alpha', 0.8 }};
+  }
+
+  .merch__button-container {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .merch__shop-all {
+    display: block;
+    width: fit-content;
+    text-align: center;
+    margin: 4rem auto 0;
+    padding: 1rem 3rem;
+    background: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+  }
+
+  .merch__shop-all:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 900px) {
+    .merch__grid {
+      grid-template-columns: repeat(2, 250px);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .merch__grid {
+      grid-template-columns: repeat(1, 250px);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .merch {
+      padding: 4rem 0;
+    }
+
+    .merch__title {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<section id="merch" class="merch">
+  <div class="merch__header">
+    <h2 class="merch__title">{{ section.settings.title }}</h2>
+  </div>
+
+  <div class="merch__grid">
+    {%- assign products = collections.all.products -%}
+    {%- for product in products limit: section.settings.products_to_show -%}
+      <a href="{{ product.url }}" class="merch__product-card">
+        {%- if product.featured_image -%}
+          {{
+            product.featured_image
+            | image_url: width: 500, height: 500, crop: 'center'
+            | image_tag: loading: 'lazy', class: 'merch__product-image', alt: product.title, width: 500, height: 500
+          }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'merch__product-image placeholder' }}
+        {%- endif -%}
+        <h3 class="merch__product-title">{{ product.title }}</h3>
+        <p class="merch__product-price">{{ product.price | money }}</p>
+      </a>
+    {%- endfor -%}
+  </div>
+
+  <div class="merch__button-container">
+    <a href="{{ routes.all_products_collection_url }}" class="button-primary">Shop All 🛍️</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Merch",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Latest Merch"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to Show"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "label": "Products to Show"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Merch"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+{% comment %} Artist banner section {% endcomment %}
+<style>
+  .banner {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    position: relative;
+    aspect-ratio: 1200/440;
+    overflow: hidden;
+    padding: 0 2rem;
+    background: transparent;
+    transition: opacity 0.3s ease;
+  }
+
+  .banner:hover {
+    opacity: 0.9;
+  }
+
+  .banner__image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .banner {
+      margin: 1rem auto;
+    }
+  }
+</style>
+
+<section class="banner">
+  <a href="https://symphony.to/chris-james/superbloom" target="_blank" rel="noopener">
+    <img
+      src="{{ 'superbloom_banner.webp' | asset_url }}"
+      alt="Superbloom Banner - Click to listen"
+      loading="eager"
+      class="banner__image"
+      width="1200"
+      height="440"
+      sizes="100vw"
+    >
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "Banner",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Banner"
+    }
+  ]
+}
+{% endschema %}
